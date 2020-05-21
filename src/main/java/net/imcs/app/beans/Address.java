@@ -5,11 +5,27 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Address {
 	
+	private String locationName;
 	private String countryName;
 	private String countryCode;
-	private int countryPhoneCode;
+	//private int countryPhoneCode;
 	private String stateName;
 	private String cityName;
+	private String postcode;
+	
+	
+	public String getLocationName() {
+		return locationName;
+	}
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
+	}
+	public String getPostcode() {
+		return postcode;
+	}
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
 	public String getCountryName() {
 		return countryName;
 	}
@@ -22,12 +38,12 @@ public class Address {
 	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
 	}
-	public int getCountryPhoneCode() {
-		return countryPhoneCode;
-	}
-	public void setCountryPhoneCode(int countryPhoneCode) {
-		this.countryPhoneCode = countryPhoneCode;
-	}
+
+	/*
+	 * public int getCountryPhoneCode() { return countryPhoneCode; } public void
+	 * setCountryPhoneCode(int countryPhoneCode) { this.countryPhoneCode =
+	 * countryPhoneCode; }
+	 */
 	public String getStateName() {
 		return stateName;
 	}

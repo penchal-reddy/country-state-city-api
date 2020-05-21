@@ -20,15 +20,9 @@ public class AddressController {
 	
 	@GetMapping(value="/addr/{query}")
 	public ResponseEntity<List<Address>> getAllCountryDetails(@PathVariable("query") String query) {
-
-		System.out.println("Query:"+query);
-		
+	
 		List<Address> listArddr = addressSrvice.getData(query);
-		/*
-		 * for (Employees employee : findByempName1) {
-		 * 
-		 * System.out.println(" order by id  "+employee.getEmpId()); }
-		 */
-	return new ResponseEntity<List<Address>>(listArddr, new HttpHeaders(), HttpStatus.OK);
+		
+			return new ResponseEntity<List<Address>>(listArddr, new HttpHeaders(), HttpStatus.OK);
 	}
 }

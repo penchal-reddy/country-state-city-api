@@ -50,7 +50,7 @@ public class RestTemplateService {
 			System.out.println("Query:" + query);
 			JSONObject response = new JSONObject(resData);
 
-			System.out.println("Respose" + response.toString());
+			
 
 			JSONArray hits = response.getJSONArray("hits");
 
@@ -58,9 +58,10 @@ public class RestTemplateService {
 			for (int i = 0; i < hits.length(); i++) {
 				addr = new Address();
 				JSONObject data = (JSONObject) hits.get(i);
+				//System.out.println("Respose" + data.toString());
 				JSONObject country = data.getJSONObject("country");
 				addr.setCountryName(country.getString("default"));
-				//addr.setCountryCode(country.getString("country_code"));
+				addr.setCountryCode(data.getString("country_code"));
 				JSONArray states = data.getJSONArray("administrative");
 				// System.out.println("states:"+states.toString());
 				for (int j = 0; j < states.length(); j++) {
@@ -70,7 +71,29 @@ public class RestTemplateService {
 						addr.setCityName(states.getString(j));
 					}
 				}
+				
+				JSONObject locNames =data.getJSONObject("locale_names");
+				JSONArray namesArray = locNames.getJSONArray("default");
+				addr.setLocationName(namesArray.getString(0));
+				
+				JSONObject higligtsres = data.getJSONObject("_highlightResult");
+				//System.out.println("higligtsres:"+higligtsres.toString());
+				try {
+				JSONArray postcodArray = higligtsres.getJSONArray("postcode");
+				if(postcodArray.length()!=0) {
+					addr.setPostcode(postcodArray.getJSONObject(0).getString("value"));
+				}
+				}catch(Exception e12) {
+					addr.setPostcode("");
+				}
+				if(addr.getCityName()==null) {
+				JSONObject city = data.getJSONObject("city");
+				addr.setCityName(city.getJSONArray("default").getString(0));
+				}
 				addressList.add(addr);
+				if(i==2) {
+					break;
+				}
 			}
 
 		} catch (Exception e) {

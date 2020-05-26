@@ -86,9 +86,14 @@ public class RestTemplateService {
 				}catch(Exception e12) {
 					addr.setPostcode("");
 				}
+				addr.setPostcode(addr.getPostcode().replaceAll("<em>","").replaceAll("</em>",""));
 				if(addr.getCityName()==null) {
+					try {
 				JSONObject city = data.getJSONObject("city");
-				addr.setCityName(city.getJSONArray("default").getString(0));
+			    	addr.setCityName(city.getJSONArray("default").getString(0));
+					}catch(Exception e12) {
+						addr.setCityName("");
+					}
 				}
 				addressList.add(addr);
 				if(i==2) {
